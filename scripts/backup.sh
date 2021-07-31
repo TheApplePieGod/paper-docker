@@ -8,7 +8,7 @@ while true
 do
   sleep ${BACKUP_TIME_MIN}m
   if [ -d "/backups/$WORLD_NAME" ]; then
-    while [ $(ls -1q /backups/${WORLD_NAME} | wc -l) -gt ${MAX_BACKUPS} ]
+    while [ $(ls -1q /backups/${WORLD_NAME} | wc -l) -ge ${MAX_BACKUPS} ]
     do
       OLDEST=$(ls -1t /backups/${WORLD_NAME} | tail -1)
       rm /backups/${WORLD_NAME}/${OLDEST}

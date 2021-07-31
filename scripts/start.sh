@@ -7,9 +7,13 @@ MAX_BACKUPS=$4
 BACKUP_TIME_MIN=$5
 BACKUP_LOGGING=$6
 
-echo "Starting backup process with config max_backups=$MAX_BACKUPS, backup_time_min=$BACKUP_TIME_MIN, backup_logging=$BACKUP_LOGGING"
-/scripts/backup.sh "$WORLD_NAME" "$MAX_BACKUPS" "$BACKUP_TIME_MIN" "$BACKUP_LOGGING" &
-BACKUP_PROCESS=$!
+if [ ${BACKUP_TIME_MIN} = "0" ]; then
+  echo "Backups disabled!"
+else
+  echo "Starting backup process with config max_backups=$MAX_BACKUPS, backup_time_min=$BACKUP_TIME_MIN, backup_logging=$BACKUP_LOGGING"
+  /scripts/backup.sh "$WORLD_NAME" "$MAX_BACKUPS" "$BACKUP_TIME_MIN" "$BACKUP_LOGGING" &
+  BACKUP_PROCESS=$!
+fi
 
 _term() {
   echo "Shutting down server process"
@@ -25,6 +29,10 @@ while true; do cat /tmp/consolepipe; done | java -server ${JAVA_OPTS} -jar /pape
 SERVER_PROCESS=$!
 
 wait "$SERVER_PROCESS"
-echo "Stopping backup task"
-kill "$BACKUP_PROCESS"
+
+if [ ${BACKUP_TIME_MIN} != "0" ]; then
+  echo "Stopping backup task"
+  kill "$BACKUP_PROCESS"
+fi
+
 echo "Shutdown complete"
