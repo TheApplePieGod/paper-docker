@@ -17,7 +17,9 @@ fi
 
 _term() {
   echo "Shutting down server process"
-  while kill -15 "$SERVER_PROCESS"; do
+  kill -15 "$SERVER_PROCESS"
+  while ps -p "$SERVER_PROCESS" > /dev/null
+  do
     sleep 0.5
   done
 }

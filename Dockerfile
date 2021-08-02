@@ -37,7 +37,7 @@ RUN useradd --shell /bin/bash minecraft -g minecraft -m -d /paper
 USER minecraft
 
 # Run setup script
-CMD ["bash", "./scripts/setup.sh"]
+CMD ["bash", "./scripts/entry.sh"]
 
 # Container ports
 EXPOSE 25565/tcp
