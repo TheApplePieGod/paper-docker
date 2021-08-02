@@ -11,6 +11,7 @@ A custom docker image for the paper build of minecraft
 - Run with a sandboxed unprivileged user
 - External script to run commands in the server console
 - Optional RCON support
+- External script to restart the server without stopping the container
 
 ## Setup
 1. Build the image or use (coming soon) from dockerhub
@@ -24,7 +25,8 @@ A custom docker image for the paper build of minecraft
 5. Run `docker exec -it <mycontainer> /bin/bash` to open a terminal inside the container
 6. From there, you can modify files if necessary and also use the `/scripts/issue-command.sh` script to run commands in the minecraft console (syntax: `/scripts/issue-command.sh "<command>"`)
 7. You can also run this command `docker exec <mycontainer> /bin/bash /scripts/issue-command.sh "say hi"` to run commands in the server console
- 
+8. To restart the server (like when you need to apply minecraft related or paper-docker related config settings), you can run the script `/scripts/restart.sh` to accomplish this or simply run the command `kill -HUP 1` within the container 
+
 ## Kubernetes setup
 - (Docs coming soon)
 
