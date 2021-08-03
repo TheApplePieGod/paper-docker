@@ -27,7 +27,7 @@ _term() {
 trap _term SIGTERM
 
 echo "Starting server with config world=$WORLD_NAME, java_opts='$JAVA_OPTS'"
-while true; do cat /tmp/consolepipe; done | java -server ${JAVA_OPTS} -jar /paper/${JAR_NAME} --universe Worlds --world ${WORLD_NAME} nogui &
+tail -n1 -f /tmp/consolepipe | java -server ${JAVA_OPTS} -jar /paper/${JAR_NAME} --universe Worlds --world ${WORLD_NAME} nogui &
 SERVER_PROCESS=$!
 
 wait "$SERVER_PROCESS"
