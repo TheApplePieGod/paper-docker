@@ -14,7 +14,7 @@ xxd -r -p - "${TARGET_PATH}/${TEMP_NAME}"
 TEMP_FILE_SIZE_B=$(stat --printf="%s" "${TARGET_PATH}/${TEMP_NAME}")
 
 if [ ${TEMP_FILE_SIZE_B} -ge $((${FILE_SIZE_B}-1000)) ]; then
-  tar -xf "${TARGET_PATH}/${TEMP_NAME}" -C "${TARGET_PATH}"
+  tar -xf "${TARGET_PATH}/${TEMP_NAME}" -k -C "${TARGET_PATH}"
 else
   echo >&2 "File upload was not complete, cancelling unzip"
 fi
