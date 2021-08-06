@@ -8,6 +8,7 @@ RUN apt-get update \
     && apt-get install -y jq \
     && apt-get install -y p7zip-full \
     && apt-get install -y nano \
+    && apt-get install -y xxd \
     && rm -rf /var/lib/apt/lists/* \
     && mkdir /paper \
     && mkdir /paper/Worlds \
