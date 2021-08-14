@@ -18,7 +18,10 @@ do
   if [ ${BACKUP_LOGGING} = "true" ]; then
     echo "Creating backup for <$WORLD_NAME>: Backup$NOW"
   fi
+  echo "save-off" > /tmp/consolepipe
+  sleep 5s
   7z a /backups/${WORLD_NAME}/Backup${NOW} /paper/Worlds/${WORLD_NAME} /paper/Worlds/${WORLD_NAME}_nether /paper/Worlds/${WORLD_NAME}_the_end -bso0 -bsp0
+  echo "save-on" > /tmp/consolepipe
   if [ ${BACKUP_LOGGING} = "true" ]; then
     echo "Backup finished"
   fi
