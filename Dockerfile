@@ -1,7 +1,7 @@
 # Adapted from https://github.com/Phyremaster/papermc-docker
 
-# Java 16 base
-FROM adoptopenjdk:16-jre
+# Java 17 base
+FROM eclipse-temurin:17
 
 RUN apt-get update \
     && apt-get install -y wget \
@@ -42,5 +42,4 @@ CMD ["bash", "./scripts/entry.sh"]
 
 # Container ports
 EXPOSE 25565/tcp
-EXPOSE 25565/udp
-EXPOSE 25575
+EXPOSE 25575/tcp
