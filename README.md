@@ -38,6 +38,7 @@ A custom docker image for the paper build of minecraft
     - `backup_logging`: Enable status logging for backups to stdout which can be read using `docker logs <mycontainer>`
     - `minecraft_version`: When installing the Paper server, use a specific version of minecraft (i.e. `1.17.1`). This can also be set to `latest` to use the most recent version
     - `paper_build`: When installing the Paper server, use a specific build of Paper (i.e. `54`). This can also be set to `latest` to use the most recent version
+    - `java_home`: The path of the Java installation to use. Useful when switching between new/old versions of the game.
     - `java_opts`: The options to pass to java when running the server
 - You will need to restart the container for these changes to take effect
 - Make sure the config file has UNIX line endings, otherwise the config will not be parsed correctly
@@ -51,5 +52,6 @@ backup_time_min=30
 backup_logging=true
 minecraft_version=latest
 paper_build=latest
+java_home=/opt/java/openjdk
 java_opts=-Xms4G -Xmx4G
 ```
