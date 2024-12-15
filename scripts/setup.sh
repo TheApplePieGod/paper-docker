@@ -13,6 +13,7 @@ config=( # defaults
   [backup_logging]="true"
   [minecraft_version]="latest"
   [paper_build]="latest"
+  [java_home]="/opt/java/openjdk"
   [java_opts]="-Xms4G -Xmx4G"
 )
 CONFIG_FILE=paper-docker.conf
@@ -30,6 +31,10 @@ fi
 
 MC_VERSION=${config[minecraft_version]}
 PAPER_BUILD=${config[paper_build]}
+
+export JAVA_HOME=${config[java_home]}
+JAVA_VERSION=$("${JAVA_HOME}/bin/java" -version 2>&1 | awk -F '"' '/version/ {print $2}')
+echo "Using Java ${JAVA_VERSION} @ ${JAVA_HOME}"
 
 # Get version information and build download URL and jar name
 URL=https://papermc.io/api/v2/projects/paper
@@ -60,7 +65,7 @@ then
   if [ ! -e eula.txt ]
   then
     # Run the server once to generate eula.txt
-    java -jar ${JAR_NAME}
+    ${JAVA_HOME}/bin/java -jar ${JAR_NAME}
     # Edit eula.txt to accept the EULA
     sed -i 's/false/true/g' eula.txt
   fi

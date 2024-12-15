@@ -1,7 +1,7 @@
 # Adapted from https://github.com/Phyremaster/papermc-docker
 
-# Java 17 base
-FROM eclipse-temurin:17
+# Java 21 base
+FROM eclipse-temurin:21
 
 RUN apt-get update \
     && apt-get install -y wget \
@@ -9,6 +9,7 @@ RUN apt-get update \
     && apt-get install -y p7zip-full \
     && apt-get install -y nano \
     && apt-get install -y xxd \
+    && apt-get install -y openjdk-17-jre \
     && rm -rf /var/lib/apt/lists/* \
     && mkdir /paper \
     && mkdir /paper/Worlds \
@@ -21,7 +22,7 @@ RUN chmod -R +x /scripts/
 
 # Create a named pipe for input into the server console
 RUN mkfifo /tmp/consolepipe
-RUN chown :1000 /tmp/consolepipe
+RUN chown :1005 /tmp/consolepipe
 RUN chmod g=rw /tmp/consolepipe
 
 # Define volumes
@@ -29,7 +30,7 @@ VOLUME /paper
 VOLUME /backups
 
 # Create the filesystem group to allow access to volume data
-RUN groupadd -g 1000 minecraft
+RUN groupadd -g 1005 minecraft
 
 # Create the local user
 RUN useradd --shell /bin/bash minecraft -g minecraft -m -d /paper
